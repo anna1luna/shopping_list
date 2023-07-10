@@ -1,0 +1,81 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+}
+.important {
+  color: red;
+  font-weight: 700;
+}
+/* Header Start */
+.heading {
+  color: lightblue;
+  font-size: 60px;
+}
+.calendar{
+  height: 110px;
+  background-image: url('/img/calendar.png');
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.calendar-date {
+  margin-top: 53%;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 21px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.header-container {
+  margin-bottom: 50px;
+}
+/* Header End */
+
+/* Edit Start */
+.edit-container {
+  margin-bottom: 50px;
+}
+.btn-row {
+  margin-bottom: 20px;
+}
+.memo {
+  display: block;
+}
+
+.table-list {
+  margin: 0;
+  font-weight: 400;
+}
+
+.minus {
+  border-radius: 100%;
+  color: lightcoral;
+  border: none;
+  background-color: transparent;
+}
+
+.plus {
+  border-radius: 100%;
+  color: lightgreen;
+  border: none;
+  background-color: transparent;
+}
+.delete {
+  border-radius: 100%;
+  border: none;
+  background-color: transparent;
+}
+.item-qiantity {
+  color: grey;
+}
+ul {
+  list-style: none;
+}
+
+.destroy {
+  margin-top: 50px;
+}
+/* Edit End */
+
+

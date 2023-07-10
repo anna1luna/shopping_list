@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping List</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="icon" type="image/x-icon" href="img/cart.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div id="shopping-list">
+    <div class="header-container container col-11">
+        <div class="row">
+          <div class="col-1 calendar"> <p class="calendar-date text-center">{{currentDate()}}</p> </div>
+          <h1 class="col-10 m-auto heading">{{head.toLocaleUpperCase()}} <i class="fa-solid fa-cart-shopping"></i> </h1>
+        </div>
+    </div>
+    <div class="edit-container container col-11">
+      <div class="row col-12 btn-row">
+        <button type="button" class="btn btn-light" v-if="editing" @click="doEdit(false)"> Hide panel <i class="fa-solid fa-eye-slash"></i></button>
+        <button type="button" class="btn btn-light" v-else @click="doEdit(true)">Add item <i class="fa-solid fa-pencil"></i></button>
+      </div>
+      <div class="row col-12 add-row">
+        <div v-if="editing" class="add-item d-flex justify-content-between">
+          <div class="col-6">
+            <input class="form-control" v-on:keyup.enter="saveItem" type="text" placeholder="Add an item" v-model.trim="newItem">
+          </div>
+          <div class="col-2">
+            <input class="form-control" type="number" placeholder="Amount" v-model.trim="newItemQuantity">
+          </div>
+          <div class="col-2">
+            <select  name="type" v-model="selected" class="form-select">
+              <option disabled value=""> Select type</option>
+              <option value="🥩">Poultry</option>
+              <option value="🥬">Fresh produce</option>
+              <option value="🍞">Bakery</option>
+              <option value="🍨">Frozen food</option>
+              <option value="🌾">Grains and pasta</option>
+              <option value="🥫">Canned goods</option>
+              <option value="☕">Beverages</option>
+              <option value="🧀">Dairy</option>
+              <option value="🧼">Household items</option>
+              <option value="🤷‍♀️">Other</option>
+            </select>
+          </div>
+          <div class="col-auto">
+            <label><input class="form-check-input" type="checkbox" v-model="newItemHighPriority" >Important</label>
+          </div>
+          <div class="col-auto">
+            <button v-bind:disabled="(newItem.length === 0, newItemQuantity.length === 0, selected.length ===0)" v-on:click ="saveItem" class="btn btn-success">Save</button>
+          </div>
+            </div>
+      </div>
+    </div>
+    <div class="container col-11 text-center">
+      <p v-if="reversedItems.length === 0"> Currently there is nothing to shop for <i class="fa-solid fa-face-sad-cry fa-spin" style="color: #a8a5bd;"></i></p>
+      <p v-if="reversedItems.length === 0"> Add some items </p>
+    </div>
+    <div class="container col-11" v-if="reversedItems.length >=1">
+      <div class="row">
+        <div class="col-3">
+          <div class="col-12"> 
+            <span class="memo"> This is an app to make grocery list:</span> 
+            <br>
+            <span class="memo"> 1. To highlight the item in a list click on it</span>
+            <span class="memo"> 2. You can only add items if you fill in all details </span>
+            <span class="memo"> Hope you enjoy it! </span>
+          </div>
+          <div class="col-12">SOMETHING</div>
+        </div>
+        <div class="col-9">
+          <ul>
+            <table class="col-12 table table-primary m-0">
+              <thead class="table table-primary m-0">
+                <tr>
+                  <th class="col-2">Type</th>
+                  <th class="col-5">Item</th>
+                  <th class="col-4">Quantity</th>
+                  <th class="col-1">Delete</th>
+                </tr>
+              </thead>
+            </table>
+            <li v-for="(item,index) in reversedItems" 
+            :key="index" 
+            @click="toggleImportant(item)" > 
+            <table class="col-12 table table-light table-hover table-list m-0">
+              <tbody>
+                <tr>
+                  <td class="col-2" @click.stop.prevent="">{{item.selected }}</td>
+                  <td class="col-5" :class="{important: item.highPriority}">{{item.label}}</td>
+                  <td class="col-4 item-qiantity" @click.stop.prevent=""> <button class="minus" @click.stop.prevent="item.quantity--"><i class="fa-solid fa-minus"></i></button> ({{item.quantity}}) <button class="plus" @click.stop.prevent="item.quantity++" ><i class="fa-solid fa-plus"></i></button></td>
+                  <td class="col-1"> <button @click="deleteItem(index)" class="delete"><i class="fa-solid fa-trash"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+            </li> 
+            <button v-show="reversedItems.length >= 1" @click="deleteAll()" class="destroy btn btn-danger">Delete All <i class="fa-solid fa-trash"></i></button></button>
+          </ul>  
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="js/app.js"></script>
+<script src="https://kit.fontawesome.com/e13f408934.js" crossorigin="anonymous"></script>
+<script src="js/bootstrap.bundle.min.js"></script>  
+</body>
+</html>
